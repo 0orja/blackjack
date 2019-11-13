@@ -1,0 +1,22 @@
+{
+  "name": "0orja-homework06",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyu-csci-ua-0480-001-fall-2019/0orja-homework06.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nyu-csci-ua-0480-001-fall-2019/0orja-homework06/issues"
+  },
+  "homepage": "https://github.com/nyu-csci-ua-0480-001-fall-2019/0orja-homework06#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
