@@ -9,10 +9,10 @@ function main() {
 	playBtn.addEventListener('click', function(evt) {
 		const startPage = document.querySelector('.start');
 		startPage.classList.toggle('hide');
-		const startValues = document.querySelector('#startValues').value.split(',').map(x => parseInt(x));
+		const startVals = document.querySelector('#startValues').value.split(',');
 	
 		//console.log('start values', startValues);
-		startGame(startValues);
+		startGame(startVals);
 
 		evt.preventDefault();
 	});
@@ -29,7 +29,8 @@ function startGame(starting) {
 	for (const s of suits) {
 		for (const v of values) {
 			const card = {value: v, suit: s};
-			if (starting.includes(card.value) || card.suit != 'spades') {
+			const check = card.value+'';
+			if (starting.includes(check) || card.suit != 'spades') {
 				deck.push(card);
 			}
 		}
@@ -45,11 +46,17 @@ function startGame(starting) {
 		deck[loc2] = temp;
 	}
 	
-	if (startValues.length > 0) {
-		//console.log('moving to top of deck');
-		startValues = startValues.reverse();
-		for (const val of startValues) {
-			deck.unshift({value: val, suit: 'spades'});
+	if (starting.length > 0) {
+		console.log('moving to top of deck');
+		starting = starting.reverse();
+		for (const val of starting) {
+			if (val === 'A' || val === 'J' || val === 'Q' || val === 'K') {
+				deck.unshift({value: val, suit: 'spades'});
+			}
+			else {
+				deck.unshift({value: parseInt(val), suit: 'spades'});
+
+			}
 		}
 	}
 	const computer = [];
@@ -86,22 +93,30 @@ function startGame(starting) {
 	const hit = document.createElement('input');
 	hit.setAttribute('type', 'submit');
 	hit.setAttribute('value', 'Hit');
+
+	const stand = document.createElement('input');
+	stand.setAttribute('type', 'submit');
+	stand.setAttribute('value', 'Stand');
+
 	hit.addEventListener('click', function(evt) {
 		newCard = deck.shift();
 		player.push(newCard);
 		showCard = deal(newCard);
 		document.querySelector('.playerCard').appendChild(showCard);
-		if (calcTotal(player) > 21) {
-			// bus
-		}
+
 		playerHeading.innerHTML = 'Your Hand: Total = ' + calcTotal(player);
+		if (calcTotal(player) > 21) {
+			// bust
+			hit.classList.toggle('hide');
+			stand.classList.toggle('hide');
+			const bust = document.createElement('div');
+			bust.className = 'bust'
+			bust.innerHTML = 'Player lost 😩';
+			game.appendChild(bust);
+		}		
 		evt.preventDefault();
 
 	});
-	const stand = document.createElement('input');
-	stand.setAttribute('type', 'submit');
-
-	stand.setAttribute('value', 'Stand');
 	game.appendChild(hit);
 	game.appendChild(stand);
 
@@ -142,10 +157,12 @@ function calcTotal(cardArray) {
 		if (curr.value === 'J' || curr.value == 'Q' || curr.value == 'K') {
 			return total += 10;
 		}
-		else if (typeof(curr.value === 'number')) {
+		else if (typeof(curr.value) === 'number') {
+			console.log('num', curr.value);
 			return total += curr.value;
 		}
 		else if (curr.value === 'A') {
+			console.log('an ace');
 			aces += 1; 
 		}
 	}, 0);
