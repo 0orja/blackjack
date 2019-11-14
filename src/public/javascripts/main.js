@@ -1,11 +1,9 @@
 // main.js
 document.addEventListener('DOMContentLoaded', main);
-console.log('hi');
 
 function main() {
-	console.log('main');
+	//console.log('main');
 	const playBtn = document.querySelector('.playBtn');
-	//console.log(playBtn);
 	playBtn.addEventListener('click', function(evt) {
 		const startPage = document.querySelector('.start');
 		startPage.classList.toggle('hide');
@@ -20,7 +18,7 @@ function main() {
 }
 
 function startGame(starting) {
-	console.log('start values', starting);
+//	console.log('start values', starting);
 	const game = document.querySelector('.game');
 	const suits = ['spades', 'hearts', 'clubs', 'diamonds'];
 	const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
@@ -158,15 +156,14 @@ function calcTotal(cardArray) {
 			return total += 10;
 		}
 		else if (typeof(curr.value) === 'number') {
-			console.log('num', curr.value);
 			return total += curr.value;
 		}
 		else if (curr.value === 'A') {
-			console.log('an ace');
 			aces += 1; 
+			return total;
 		}
 	}, 0);
-	for (let a = 0; a<aces; a++) {
+	for (let a = 0; a<aces; a++) { // wait until end to add ace value
 		if (total + 11 > 21) {
 			total += 1;
 		}
