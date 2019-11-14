@@ -1,4 +1,50 @@
 /* style.css */
+* {
+	text-align: center;
+}
 .hide {
 	display: none;
+}
+.dealt {
+	display: inline-block;
+	height: 150px;
+	width: 100px;
+	border: 2px solid black;
+	margin: 5px;
+	padding: 10px;
+	border-radius: 5px
+}
+
+.game {
+	text-align: center;
+}
+.computerCard {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.playerCard {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.val {
+	text-align: left;
+	vertical-align: top;
+	font-size: 2em;
+}
+.suit {
+	text-align: center;
+	font-size: 8em;
+	padding-bottom: 10px;
+}
+.faceDown .val {
+	display: none;
+}
+.faceDown .suit {
+	display: none;
+}
+.faceDown .dealt {
+	background: url(../img/bg.png);
+}
+.hit, .stand {
+	font-size: 3em;
 }
