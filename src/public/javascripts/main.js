@@ -53,7 +53,6 @@ function startGame(starting) {
 			}
 			else {
 				deck.unshift({value: parseInt(val), suit: 'spades'});
-
 			}
 		}
 	}
@@ -107,14 +106,47 @@ function startGame(starting) {
 			// bust
 			hit.classList.toggle('hide');
 			stand.classList.toggle('hide');
-			const bust = document.createElement('div');
-			bust.className = 'bust'
-			bust.innerHTML = 'Player lost 😩';
-			game.appendChild(bust);
+			const endBanner = document.createElement('div');
+			endBanner.className = 'bust'
+			endBanner.innerHTML = 'Player lost 😩';
+			game.appendChild(endBanner);
 		}		
 		evt.preventDefault();
 
 	});
+
+	stand.addEventListener('click', function(evt) {
+		while (computerTotal < 21) {
+			newCard = deck.shift();
+			computer.push(newCard);
+			computerTotal = calcTotal(computer);
+		}
+		for (const c of computer) {
+			console.log('no more hit');
+			showCard = deal(c);
+			console.log('after deal');
+			document.querySelector('.computerCard').appendChild(showCard);
+			computerCards.classList.remove('faceDown');
+		}
+		computerHeading.innerHTML = 'Computer Hand: Total = ' + computerTotal;
+		
+		hit.classList.toggle('hide');
+		stand.classList.toggle('hide');
+		const endBanner = document.createElement('div');
+		endBanner.className = 'endBanner';
+		if (computerTotal > 21 || computerTotal < playerTotal) {
+			endBanner.innerHTML = 'Player won! 👀💸';
+		}
+		else if (computerTotal > playerTotal) {
+			endBanner.innerHTML = 'Player lost 😩';
+		}
+		else if (computerTotal === playerTotal) {
+			endBanner.innerHTML = 'it\'s a tie!';
+		}
+		game.appendChild(endBanner);
+
+		evt.preventDefault();
+	})
 	game.appendChild(hit);
 	game.appendChild(stand);
 

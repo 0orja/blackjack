@@ -12,7 +12,7 @@
 	border: 2px solid black;
 	margin: 5px;
 	padding: 10px;
-	border-radius: 5px
+	border-radius: 5px;
 }
 
 .game {
@@ -47,4 +47,7 @@
 }
 .hit, .stand {
 	font-size: 3em;
+}
+.endBanner {
+	font-size: 2em;
 }
